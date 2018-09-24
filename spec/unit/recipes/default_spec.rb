@@ -30,5 +30,29 @@ describe 'mongo::default' do
     it 'should install mongod' do
       expect(chef_run).to upgrade_package 'mongodb-org'
     end
+
+    it 'should create a mongo.conf template in /etc/mongod.conf' do
+      expect(chef_run).to create_template("/etc/mongod.conf")
+    end
+
+    it 'should delete the conf from the default config in /etc/mongod.conf' do
+      expect(chef_run).to delete_file("/etc/mongod.conf")
+    end
+
+    it 'should delete the conf from the default config in /lib/systemd/system/mongod.service"' do
+      expect(chef_run).to delete_file("/lib/systemd/system/mongod.service")
+    end
+
+    it 'should start the mongod service' do
+      expect(chef_run).to start_service('mongod')
+    end
+
+    it 'should enable the mongod service' do
+      expect(chef_run).to enable_service('mongod')
+    end
+
+    it 'should delete the conf from the default config in /etc/mongod.conf' do
+      expect(chef_run).to delete_file("/lib/systemd/system/mongod.service")
+    end
   end
 end

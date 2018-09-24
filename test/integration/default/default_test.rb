@@ -15,6 +15,6 @@ describe package 'mongodb-org' do
   its('version') { should match /3\./ }
 end
 
-describe port(80), :skip do
-  it { should_not be_listening }
+describe port('0.0.0.0', 27017) do
+  it { should be_listening }
 end
